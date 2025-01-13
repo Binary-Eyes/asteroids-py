@@ -18,10 +18,22 @@ class Player(circleshape.CircleShape):
     
     def update(self, deltaTime):
         keys = pygame.key.get_pressed()
+        
+        # rotate
         if keys[pygame.K_a]:
             self.rotation -= PLAYER_TURN_SPEED*deltaTime
         if keys[pygame.K_d]:
             self.rotation += PLAYER_TURN_SPEED*deltaTime
+        forward = pygame.Vector2(0,1).rotate(self.rotation)
+        
+        # move
+        thrust = 0
+        if keys[pygame.K_w]:
+            thrust = +1
+        if keys[pygame.K_s]:
+            thrust = -1
+        velocity = forward*thrust*deltaTime
+        self.position += velocity*PLAYER_SPEED
 
 
     def draw(self, screen):

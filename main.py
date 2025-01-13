@@ -18,11 +18,14 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        screen.fill((0,0,0))
+        # update frame
+        deltaTime = gameClock.tick(60.0)/1000.0
+        player.update(deltaTime)
+
+        # draw frame
+        screen.fill((0,0,0))        
         player.draw(screen)
         display.flip()
-        deltaTime = gameClock.tick(60.0)/1000.0
-
 
 if __name__ == "__main__":
     main()

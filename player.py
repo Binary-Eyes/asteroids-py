@@ -6,6 +6,7 @@ class Player(circleshape.CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0.0
+        self.velocity = pygame.Vector2(0, 0)
 
      # in the player class
     def triangle(self):
@@ -32,8 +33,9 @@ class Player(circleshape.CircleShape):
             thrust = +1
         if keys[pygame.K_s]:
             thrust = -1
-        velocity = forward*thrust*deltaTime
-        self.position += velocity*PLAYER_SPEED
+        
+        self.velocity += forward*deltaTime*thrust*PLAYER_THRUST
+        self.position += self.velocity
 
 
     def draw(self, screen):

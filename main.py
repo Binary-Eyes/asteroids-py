@@ -32,6 +32,12 @@ def main():
         for entry in updatable:
             entry.update(deltaTime)
 
+        for entry in asteroids:
+            collision_detected = entry.check_collision(player)
+            if collision_detected:
+                print('Game Over!')
+                return
+
         # draw frame
         screen.fill((0,0,0))
         for entry in drawable:

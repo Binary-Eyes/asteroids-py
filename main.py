@@ -32,19 +32,25 @@ def main():
         
         # update frame
         deltaTime = gameClock.tick(60.0)/1000.0
-        for entry in updatable:
-            entry.update(deltaTime)
+        for asteroid in updatable:
+            asteroid.update(deltaTime)
 
-        for entry in asteroids:
-            collision_detected = entry.check_collision(player)
-            if collision_detected:
+        for asteroid in asteroids:
+            for bullet in shots:
+                if not asteroid.check_collision(bullet):
+                    continue
+                asteroid.kill()
+                bullet.kill()
+            
+            collided_with_player = asteroid.check_collision(player)
+            if collided_with_player:
                 print('Game Over!')
                 return
 
         # draw frame
         screen.fill((0,0,0))
-        for entry in drawable:
-            entry.draw(screen)
+        for asteroid in drawable:
+            asteroid.draw(screen)
 
         display.flip()
 
